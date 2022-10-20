@@ -46,6 +46,8 @@ defmodule Ytvcr.MixProject do
       {:gettext, "~> 0.18"},
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"},
+      {:holodex, "~> 0.1.3"},
+      {:dialyxir, "~> 1.0", only: [:dev], runtime: false},
       {:faker, "~> 0.17", only: [:dev, :test]}
     ]
   end
