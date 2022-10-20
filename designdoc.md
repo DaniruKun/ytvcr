@@ -78,9 +78,9 @@ erDiagram
 
   Recording {
    string id
-   string filename
    string state
    string external_video_id
+   string external_site_name
    string temp_file_path
    string download_url
   }
@@ -90,6 +90,7 @@ erDiagram
 ```
 
 `external_video_id` - the unique ID of a source video on the specific video hosting service (e.g. the `video_id` of a Youtube video)
+`external_site_name` - the unique name of the source site from which the video is being downloaded from (e.g. `youtube`)
 `download_url` - the public URL from which the stored and processed recording can be downloaded by users
 `temp_file_path` - the path to the temporary muxed recording file
 
