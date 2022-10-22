@@ -56,7 +56,7 @@ flowchart TD
 ## Data model
 
 A `User` is a user of the system. A `User` can create multiple `Cassette`s.
-When a `Cassette` is created, we try to find if a `Recording` with the same `external_url` already exists, since we don't want to create duplicate jobs for the same source video. If it is found, we link it to the `Cassette`, otherwise a new `Recording` is created with the same `external_url`. Then it is the download manager's job to satisfy the `Recording`.
+When a `Cassette` is created, we try to find if a `Recording` with the same `external_video_id` and `external_site_name` already exists, since we don't want to create duplicate jobs for the same source video. If it is found, we link it to the `Cassette`, otherwise a new `Recording` is created with the same `external_video_id` and `external_site_name`. Then it is the download manager's job to satisfy the `Recording`.
 `Recording`s can have different states, starting with `scheduled` and ending with `uploaded`.
 Once a `Recording` has been `uploaded`, the local file can and should be deleted to free space for other scheduled temporary fragment files required by `ytarchive`.
 Once the expiration time of a `Cassette` has been reached, it is garbage collected by a job, and its associated recording deleted.

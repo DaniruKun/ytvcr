@@ -15,9 +15,10 @@ defmodule Ytvcr.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: Ytvcr.PubSub},
       # Start the Endpoint (http/https)
-      YtvcrWeb.Endpoint
+      YtvcrWeb.Endpoint,
       # Start a worker by calling: Ytvcr.Worker.start_link(arg)
       # {Ytvcr.Worker, arg}
+      {Oban, Application.fetch_env!(:ytvcr, Oban)}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

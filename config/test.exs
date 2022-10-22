@@ -23,6 +23,8 @@ config :ytvcr, YtvcrWeb.Endpoint,
 # In test we don't send emails.
 config :ytvcr, Ytvcr.Mailer, adapter: Swoosh.Adapters.Test
 
+config :ytvcr, Oban, testing: :inline
+
 # Print only warnings and errors during test
 config :logger, level: :warn
 
