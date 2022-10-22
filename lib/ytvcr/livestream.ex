@@ -3,6 +3,8 @@ defmodule Ytvcr.Livestream do
   Functions related to external livestreams and their metadata.
   """
 
+  require Logger
+
   @type video_id :: String.t()
   @type site_name :: String.t()
 
@@ -27,6 +29,37 @@ defmodule Ytvcr.Livestream do
       end
     else
       {:error, :unknown_site_name}
+    end
+  end
+
+  @doc """
+  Start recording an external video with the given params to `file_path` (without the extension).
+  """
+  @spec record(
+          external_video_id :: String.t(),
+          external_site_name :: String.t(),
+          file_path :: String.t()
+        ) :: :ignore | {:error, any} | {:ok, pid}
+  def record(external_video_id, external_site_name, file_path) do
+    with url <- build_external_url(external_video_id, external_site_name),
+         args = [
+           "-o",
+           file_path,
+           "--wait",
+           "--thumbnail",
+           "--merge",
+           url,
+           "best"
+         ] do
+      Logger.info("Starting recording of video with id: [#{external_video_id}]")
+      Ytvcr.YtarchiveAdapter.start_link(args)
+    end
+  end
+
+  defp build_external_url(video_id, site_name) do
+    case site_name do
+      "youtube" -> "https://youtu.be/#{video_id}"
+      _ -> raise "unknown site: #{site_name}"
     end
   end
 end
