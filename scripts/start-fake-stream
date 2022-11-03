@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+set -Eeuo pipefail
+
+YT_URL=${1:-"rtmp://a.rtmp.youtube.com/live2"}
+SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
+VBR="1500k"
+FPS="24"
+PRESET="veryfast"
+SOURCE=${1:-"${SCRIPT_DIR}/testpattern.mp4"}
+
+if ! command -v ffmpeg &>/dev/null; then
+	echo "ffmpeg is required (https://ffmpeg.org)."
+	exit 1
+fi
+
+echo "Starting RTMP stream and pushing to Youtube..."
+
+ffmpeg \
+	-stream_loop -1 \
+	-i "${SOURCE}" \
+	-vcodec libx264 \
+	-pix_fmt yuv420p \
+	-preset $PRESET \
+	-r $FPS \
+	-g $(($FPS * 2)) -b:v $VBR \
+	-acodec libmp3lame \
+	-ar 44100 \
+	-threads 4 \
+	-crf 28 \
+	-b:a 712000 \
+	-bufsize 512k \
+	-f flv "$YT_URL/$YT_STREAM_KEY"
