@@ -1,4 +1,12 @@
 defmodule Ytvcr.YtarchiveAdapter do
+  @moduledoc """
+  GenServer managing the lifecycle of a recording using `ytarchive`.
+
+  To start, must be passed a list of `ytarchive` args.
+  E.g. `["<video url>", "best"]`
+
+  After the `timeout` set in the state is reached, the recording is stopped prematurely.
+  """
   use GenServer
 
   require Logger
@@ -31,7 +39,7 @@ defmodule Ytvcr.YtarchiveAdapter do
 
   @impl true
   def handle_info({_port, {:data, msg}}, state) do
-    # Logger.debug("#{__MODULE__}: Received message from port: #{msg}")
+    Logger.debug("#{__MODULE__}: Received message from port: #{msg}")
     {:noreply, state}
   end
 
@@ -45,6 +53,6 @@ defmodule Ytvcr.YtarchiveAdapter do
   @impl true
   def handle_info(_msg, state) do
     Logger.warn("#{__MODULE__}: Received unknown message")
-    {:ok, state}
+    {:noreply, state}
   end
 end
