@@ -18,6 +18,8 @@ defmodule YtvcrWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+
+    resources "/users", UserController
   end
 
   # Other scopes may use custom stacks.
