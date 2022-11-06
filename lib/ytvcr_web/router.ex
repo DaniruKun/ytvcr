@@ -20,6 +20,13 @@ defmodule YtvcrWeb.Router do
     get "/", PageController, :index
 
     resources "/users", UserController
+
+    live "/cassettes", CassetteLive.Index, :index
+    live "/cassettes/new", CassetteLive.Index, :new
+    live "/cassettes/:id/edit", CassetteLive.Index, :edit
+
+    live "/cassettes/:id", CassetteLive.Show, :show
+    live "/cassettes/:id/show/edit", CassetteLive.Show, :edit
   end
 
   # Other scopes may use custom stacks.

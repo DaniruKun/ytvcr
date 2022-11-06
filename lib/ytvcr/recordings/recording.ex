@@ -19,6 +19,8 @@ defmodule Ytvcr.Recordings.Recording do
     field :temp_file_path
     field :download_url
 
+    has_many :recordings, Ytvcr.Recordings.Recording
+
     timestamps()
   end
 

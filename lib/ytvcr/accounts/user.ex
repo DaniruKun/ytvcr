@@ -6,6 +6,8 @@ defmodule Ytvcr.Accounts.User do
     field :username
     field :email
 
+    has_many :cassettes, Ytvcr.Cassettes.Cassette
+
     timestamps()
   end
 

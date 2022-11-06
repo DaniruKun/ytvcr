@@ -1,0 +1,21 @@
+<h1>Show Cassette</h1>
+
+<%= if @live_action in [:edit] do %>
+  <.modal return_to={Routes.cassette_show_path(@socket, :show, @cassette)}>
+    <.live_component
+      module={YtvcrWeb.CassetteLive.FormComponent}
+      id={@cassette.id}
+      title={@page_title}
+      action={@live_action}
+      cassette={@cassette}
+      return_to={Routes.cassette_show_path(@socket, :show, @cassette)}
+    />
+  </.modal>
+<% end %>
+
+<ul>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.cassette_show_path(@socket, :edit, @cassette), class: "button" %></span> |
+<span><%= live_redirect "Back", to: Routes.cassette_index_path(@socket, :index) %></span>
